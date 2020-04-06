@@ -16,7 +16,7 @@
 <body>
     <div role="navigation">
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Pagina Principala</a>
+            <a class="navbar-brand" href="index.php">Pagina Principal</a>
         </nav>
     </div>
 
