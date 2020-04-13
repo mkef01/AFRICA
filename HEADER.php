@@ -16,7 +16,7 @@
 <body>
     <div role="navigation">
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Pagina Principal</a>
+            <a class="navbar-brand" href="index.php">Compras en AFRICA</a>
         </nav>
     </div>
 
