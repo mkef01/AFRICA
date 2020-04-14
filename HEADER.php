@@ -11,7 +11,7 @@
 
     <title>AFRICA</title>
 </head>
-
+<script src="angular.min.js"></script>
 
 <body>
     <div role="navigation">
