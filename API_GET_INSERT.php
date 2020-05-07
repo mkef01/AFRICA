@@ -14,7 +14,7 @@ if ($mysqli->connect_errno) {
         $destino = $datafinal->tabla;
         $salvoducto = $datafinal->valores;
         try {
-            $sql = "INSERT INTO " . $destino . "(" . $campamento . ") VALUES (".$valorcto.")";
+            $sql = "INSERT INTO " . $destino . "(" . $campamento . ") VALUES (".$salvoducto.")";
             if ($mysqli->query($sql)) {
                 $dat['datosgeneral'][] = 1;
                 response($dat);

@@ -11,7 +11,7 @@ include('HEADER.php');
 <div class="col-lg-12" ng-app="Angapp" ng-controller="AngCtrl">
     <div class="form-group col-lg-12">
         <div class="card col-lg-8 offset-lg-2" style="margin-top: 5px; background-color: darkslategray">
-            <input class="btn btn-dark" style="background-color: darkslategray; border-color: transparent" type="button" value="Agregar Item" name="agregar" />
+            <button button type="button" class="btn btn-dark" ng-click='insertar()' ng-model="myVal">Agregar Item</button>
         </div>
         <div class="card table-responsive" style="margin-top: 5px">
             <table class="table table-dark">
@@ -70,9 +70,7 @@ include('HEADER.php');
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -96,17 +94,17 @@ include('HEADER.php');
                     <div class="form-group">
                         <label for="unidad">Unidad</label>
                         <select class="form-control" id="unidad" ng-model="unidad">
-                        <option ng-repeat="x in unidasa" value="{{x[0]}}">{{x[1]}}</option>
+                            <option ng-repeat="x in unidasa" value="{{x[0]}}">{{x[1]}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha</label>
-                        <input type="date" class="form-control" id="fecha" placeholder="yyyy/mm/dd" ng-model="fecha">
+                        <input type="date" class="form-control" id="fecha" name="fecha" placeholder="yyyy/mm/dd" ng-model="fecha">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="card col-lg-12" style="margin-top: 5px; background-color: darkslategray" id="destino">
-                        
+
                     </div>
                 </div>
             </div>
@@ -114,99 +112,7 @@ include('HEADER.php');
     </div>
 
 </div>
-<script type="text/javascript">
-    var app = angular.module('Angapp', []);
-    app.directive('stringToNumber', function() {
-        return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, ngModel) {
-                ngModel.$parsers.push(function(value) {
-                    return '' + value;
-                });
-                ngModel.$formatters.push(function(value) {
-                    return parseFloat(value);
-                });
-            }
-        };
-    });
-    app.controller('AngCtrl',
-        function($scope, $http, $q) {
-            var datos = {
-                "campos": "*",
-                "tabla": "PRODUCTOSS"
-            };
-            $http.post("API_GET_SELECT.php", JSON.stringify(datos)).then(function(response) {
-                    $scope.principal = response.data.datosgeneral;
-                    console.log($scope.principal);
-                },
-                function(error, status) {});
-
-
-            $scope.modificar = function($val) {
-                $("#enchulame").modal({
-                    backdrop: "static",
-                    show: true
-                });
-
-                var datos = {
-                    "campos": "id_tipo,tipo",
-                    "tabla": "tipo_producto"
-                };
-
-                $http.post("API_GET_SELECT.php", JSON.stringify(datos)).then(function(response) {
-                    $scope.tipaso = response.data.datosgeneral;
-                },
-                function(error, status) {});
-
-                var datos = {
-                    "campos": "*",
-                    "tabla": "unidades"
-                };
-
-                $http.post("API_GET_SELECT.php", JSON.stringify(datos)).then(function(response) {
-                    $scope.unidasa = response.data.datosgeneral;
-                },
-                function(error, status) {});
-
-                var datos = {
-                    "campos": "*",
-                    "tabla": "PRODUCTOSS WHERE ID_PRODUCTO = " + $val
-                };
-                $http.post("API_GET_SELECT.php", JSON.stringify(datos)).then(function(response) {
-                        $scope.nombre = response.data.datosgeneral[0][0];
-                        $scope.descripcion = response.data.datosgeneral[0][1];
-                        $scope.minimo = response.data.datosgeneral[0][2];
-                        $scope.tipo = response.data.datosgeneral[0][7];
-                        $scope.unidad = response.data.datosgeneral[0][8];
-                        $scope.fecha = new Date(response.data.datosgeneral[0][5]);
-                        console.log(response.data.datosgeneral[0][0]);
-                    },
-                    function(error, status) {});
-                $('<input class="btn btn-dark" style="background-color: darkslategray; border-color: transparent" type="button" value="Modificar Item" name="agregar" />')
-                .appendTo('#destino');        
-                /* var datos = {
-                    "camposactualizar": "stock_minimo = 2",
-                    "tabla": "productos",
-                    "condicionante": "id_producto = 1"
-                }; */
-                /* $http.post("API_GET_UPDATE.php", JSON.stringify(datos)).then(function(response) {
-                        $scope.principal = response.data.datosgeneral;
-                        if (response.data.datosgeneral[0] === 1) {
-                            $scope.upate = "Modificado Exitosamente";
-
-
-                        } else {
-                            $scope.upate = response.data.datosgeneral[0];
-                            $("#enchulame").modal({
-                                backdrop: "static",
-                                show: true
-                            });
-                        }
-                    },
-                    function(error, status) {}); */
-            }
-        });
-</script>
+<script type="text/javascript" src="admin_js.js"></script>
 <?php
 include('FOOTER.php');
 ?>
